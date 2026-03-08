@@ -1,0 +1,63 @@
+﻿@page
+@model YourSalary.Pages.SalaryGuessModel
+@{
+    ViewData["Title"] = "Guess Athlete Salary";
+}
+
+<div class="container mt-5">
+
+    @if (Model.IsGameOver)
+    {
+        <div class="card text-center shadow-lg p-4">
+            <h2 class="text-danger mb-3">🏁 Game Over</h2>
+            <h4>Your Final Score:</h4>
+            <h1 class="display-4 fw-bold text-primary">@Model.Score</h1>
+
+            <form method="get" class="mt-4">
+                <button class="btn btn-success btn-lg">Play Again</button>
+            </form>
+        </div>
+    }
+    else
+    {
+        <div class="card shadow-lg p-4">
+
+            <div class="d-flex justify-content-between mb-3">
+                <h5>Round: <span class="badge bg-dark">@Model.Round / 10</span></h5>
+                <h5>Score: <span class="badge bg-success">@Model.Score</span></h5>
+            </div>
+
+            <h4 class="text-center mb-4">
+                Choose the athlete with higher salary
+            </h4>
+
+            <form method="post">
+                <input type="hidden" name="athlete1" value="@Model.Athlete1.Id" />
+                <input type="hidden" name="athlete2" value="@Model.Athlete2.Id" />
+
+                <div class="row text-center">
+
+                    <div class="col-md-6 mb-3">
+                        <button type="submit"
+                                name="SelectedAthleteId"
+                                value="@Model.Athlete1.Id"
+                                class="btn btn-outline-primary w-100 p-4 fs-5 shadow-sm">
+                            @Model.Athlete1.FirstName @Model.Athlete1.LastName
+                        </button>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <button type="submit"
+                                name="SelectedAthleteId"
+                                value="@Model.Athlete2.Id"
+                                class="btn btn-outline-danger w-100 p-4 fs-5 shadow-sm">
+                            @Model.Athlete2.FirstName @Model.Athlete2.LastName
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    }
+
+</div>

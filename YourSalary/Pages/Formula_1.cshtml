@@ -1,0 +1,76 @@
+﻿@page
+@model YourSalary.Pages.Formula_1Model
+@using System.Globalization
+@{
+    ViewData["Title"] = "Formula 1 page";
+    var culture = new CultureInfo("fr-FR");
+}
+
+<link rel="stylesheet" href="~/css/athletes1.css" />
+
+<div class="main-wrapper">
+
+   
+
+    <div class="left-panel">
+        <h2>Compare Your Salary</h2>
+
+        <form method="post">
+            <label>Your monthly salary in euros:</label>
+            <input type="number" asp-for="MonthlySalary" />
+            <span asp-validation-for="MonthlySalary" class="validation-error"></span>
+
+            <input type="hidden" asp-for="SelectedAthleteId" id="selectedAthlete" />
+
+            <button type="submit">Calculate</button>
+        </form>
+
+        @if (Model.YearsNeeded != null && Model.SelectedAthleteId.HasValue)
+        {
+            var athlete = Model.Athletes.FirstOrDefault(a => a.Id == Model.SelectedAthleteId);
+
+            if (athlete != null)
+            {
+                <div class="result-box">
+                    <p>
+                        <strong>@athlete.FirstName @athlete.LastName</strong> salary is
+                        @athlete.YearlyIncome.ToString("N0", culture) €<br /><br />
+                        You need to work <span class="highlight">@Model.YearsNeeded</span>
+                        to earn his 1 day salary.
+                    </p>
+                </div>
+            }
+        }
+    </div>
+
+  
+
+    <div class="right-panel">
+        @foreach (var athlete in Model.Athletes)
+        {
+            <div class="athlete-card" data-id="@athlete.Id">
+                @athlete.LastName
+            </div>
+        }
+    </div>
+
+</div>
+
+<script>
+    document.querySelectorAll(".athlete-card").forEach(card => {
+        card.addEventListener("click", function () {
+
+            document.getElementById("selectedAthlete").value =
+                this.getAttribute("data-id");
+
+            document.querySelectorAll(".athlete-card")
+                .forEach(c => c.classList.remove("selected"));
+
+            this.classList.add("selected");
+        });
+    });
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,69 @@
+﻿@page
+@model YourSalary.Pages.BasketballModel
+@using System.Globalization
+@{
+    ViewData["Title"] = "Basketball page";
+
+
+    var culture = new CultureInfo("fr-FR");
+}
+<link rel="stylesheet" href="~/css/athletes.css" />
+
+<div class="container">
+   
+    <div class="left-panel">
+        <h2>Compare Your Salary</h2>
+
+        <form method="post">
+            <label>Your monthly salary in euros:</label>
+            <input type="number" asp-for="MonthlySalary" />
+            <span asp-validation-for="MonthlySalary" class="text-danger"></span>
+            
+            <input type="hidden" asp-for="SelectedAthleteId" id="selectedAthlete" />
+
+            <button type="submit">Calculate</button>
+        </form>
+
+        @if (Model.YearsNeeded != null && Model.SelectedAthleteId.HasValue)
+        {
+            var athlete = Model.Athletes.FirstOrDefault(a => a.Id == Model.SelectedAthleteId);
+
+            if (athlete != null)
+            {
+                <p>
+                    @athlete.FirstName @athlete.LastName salary is
+                    @athlete.YearlyIncome.ToString("N0", culture) &euro;<br />
+                    You need to work <b>@Model.YearsNeeded</b>
+                    to earn his 1 day salary.
+                </p>
+            }
+        }
+    </div>
+
+   
+    <div class="right-panel">
+        @foreach (var athlete in Model.Athletes)
+        {
+            <div class="athlete-card" data-id="@athlete.Id">
+                @athlete.LastName
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll(".athlete-card").forEach(card => {
+        card.addEventListener("click", function () {
+           
+            document.getElementById("selectedAthlete").value = this.getAttribute("data-id");
+
+            
+            document.querySelectorAll(".athlete-card").forEach(c => c.classList.remove("selected"));
+            this.classList.add("selected");
+        });
+    });
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

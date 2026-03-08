@@ -1,0 +1,64 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+
+
+
+/*
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.left-panel {
+    width: 50%;
+    padding: 40px;
+}
+
+.right-panel {
+    width: 50%;
+    overflow-y: scroll;
+    padding: 20px;
+}
+
+.athlete-card {
+    cursor: pointer;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    transition: 0.3s;
+}
+
+    .athlete-card:hover {
+        transform: scale(1.05);
+    }
+
+    .athlete-card.selected {
+        border: 3px solid gold;
+    }*/
+
+.main-layout {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}

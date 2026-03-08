@@ -1,0 +1,59 @@
+﻿@page
+@model IndexModel
+@using System.Globalization
+@{
+    ViewData["Title"] = "Home page";
+
+
+    var culture = new CultureInfo("fr-FR");
+}
+
+<h2>Count how many years you need</h2>
+
+<form method="post">
+    <label>Your monthly salary in euros:</label>
+    <input type="number" asp-for="MonthlySalary" />
+    <span asp-validation-for="MonthlySalary" class="text-danger"></span>
+
+    <label>Choose athlete:</label>
+    <select asp-for="SelectedAthleteId">
+        <option value="">Select an athlete</option>
+
+
+        @foreach (var athlete in Model.Athletes)
+        {
+            <option value="@athlete.Id">
+                @athlete.FirstName @athlete.LastName (@athlete.Team)
+            </option>
+        }
+    </select>
+
+    <button type="submit">Count</button>
+</form>
+
+
+<!--
+
+-->
+
+
+
+
+@if (Model.YearsNeeded != null && Model.SelectedAthleteId.HasValue)
+{
+    var athlete = Model.Athletes.FirstOrDefault(a => a.Id == Model.SelectedAthleteId.Value);
+    if (athlete != null)
+    {
+        <p>
+            @athlete.FirstName @athlete.LastName salary is @athlete.YearlyIncome.ToString("N0", culture ) &euro;<br />
+            You need to work <b>@Model.YearsNeeded</b>
+            if you want @athlete.FirstName @athlete.LastName 1 day salary <br/>
+
+            Or you need to work approximately
+            <b>@Math.Round(Model.HoursNeeded.Value, 2)</b> hours.
+        </p>
+    }
+}
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
