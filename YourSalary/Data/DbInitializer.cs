@@ -42,6 +42,7 @@ namespace YourSalary.Data
                 new Athlete{ FirstName="Anthony", LastName="Davis", Team="Los Angeles Lakers", Sport="Basketball", YearlyIncome=51_000_000 },
                 new Athlete{ FirstName="Kawhi", LastName="Leonard", Team="Los Angeles Clippers", Sport="Basketball", YearlyIncome=48_000_000 },
                 new Athlete{ FirstName="Joel", LastName="Embiid", Team="Philadelphia 76ers", Sport="Basketball", YearlyIncome=35_000_000 },
+                new Athlete{ FirstName = "Shota", LastName = "Shotadze", Team = "Golden State", Sport= "Basketball", YearlyIncome = 100_000_000},
 
                 new Athlete{ FirstName="Fernando", LastName="Alonso", Team="Aston Martin", Sport="Formula 1", YearlyIncome=30_000_000 },
                 new Athlete{ FirstName="George", LastName="Russell", Team="Mercedes", Sport="Formula 1", YearlyIncome=19_000_000 },
